@@ -1,9 +1,13 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
   let titleField = "";
   let speedField = 0;
 
   const newCarAddHandler = () => {
-    console.log("New Car!", { titleField, speedField });
+    // console.log("New Car!", { titleField, speedField });
+    dispatch("add", { title: titleField, speed: speedField });
   };
 </script>
 
