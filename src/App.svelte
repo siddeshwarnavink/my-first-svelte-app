@@ -22,8 +22,6 @@
   };
 
   const editCarHandler = event => {
-    console.log("Ran!");
-
     const carId = event.detail.id;
     const carTitle = event.detail.title;
     const carSpeed = event.detail.speed;
@@ -39,6 +37,12 @@
 
       return carData;
     });
+  };
+
+  const deleteCarHandler = event => {
+    const carId = event.detail.id;
+
+    data = data.filter(({ id }) => carId != id);
   };
 </script>
 
@@ -57,7 +61,10 @@
     <NewCar on:add={addCarHandler} />
     <section>
       {#each data as carData}
-        <CarItem {...carData} on:edit={editCarHandler} />
+        <CarItem
+          {...carData}
+          on:edit={editCarHandler}
+          on:delete={deleteCarHandler} />
       {/each}
     </section>
   </div>

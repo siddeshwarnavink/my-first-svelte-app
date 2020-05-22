@@ -24,6 +24,12 @@
     });
     toggleEditModeHandler();
   };
+
+  const onDeleteHandler = () => {
+    dispatch("delete", {
+      id
+    });
+  };
 </script>
 
 <style>
@@ -94,7 +100,7 @@
       <button class="flat" on:click={toggleEditModeHandler}>Cancel</button>
     {:else}
       <button on:click={toggleEditModeHandler}>Edit</button>
-      <button>Delete</button>
+      <button on:click={onDeleteHandler}>Delete</button>
     {/if}
   </div>
 </div>
