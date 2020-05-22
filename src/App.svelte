@@ -1,10 +1,16 @@
 <script>
-  import initData from "./initData.js";
   import Header from "./TheHeader.svelte";
   import CarItem from "./CarItem.svelte";
   import NewCar from "./NewCar.svelte";
+  import { carList } from "./store/cars.js";
 
-  let data = [...initData];
+  let data;
+
+  carList.subscribe(cars => {
+    console.log(cars);
+
+    data = cars;
+  });
 
   const addCarHandler = event => {
     const carId = Date.now().toString();
