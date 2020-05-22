@@ -5,7 +5,9 @@
 
 <style>
   .content {
-    padding: 10px;
+    max-width: 500px;
+    margin: auto;
+    margin-top: 2em;
   }
 </style>
 
