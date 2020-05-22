@@ -1,13 +1,17 @@
 import { writable } from 'svelte/store';
 import carData from './initData';
 
-export const carList = writable(carData);
+const carList = writable(carData);
 
-export const addCar = car => carList.update(cars => [car, ...cars]);
+const addCar = car => carList.update(cars => [car, ...cars]);
 
-export const editCar = newCar => carList.update(cars => cars.map(c => {
+const editCar = newCar => carList.update(cars => cars.map(c => {
     if (c.id == newCar.id) {
         return newCar;
     }
     return c;
 }));
+
+const deleteCar = carId => carList.update(cars => cars.filter(({ id }) => id != carId));
+
+export { deleteCar, editCar, addCar, carList };

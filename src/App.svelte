@@ -7,12 +7,6 @@
   let data;
 
   carList.subscribe(cars => (data = cars));
-
-  const deleteCarHandler = event => {
-    const carId = event.detail.id;
-
-    data = data.filter(({ id }) => carId != id);
-  };
 </script>
 
 <style>
@@ -30,7 +24,7 @@
     <NewCar />
     <section>
       {#each data as carData}
-        <CarItem {...carData} on:delete={deleteCarHandler} />
+        <CarItem {...carData} />
       {/each}
     </section>
   </div>

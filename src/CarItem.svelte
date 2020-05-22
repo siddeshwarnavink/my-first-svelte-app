@@ -1,6 +1,6 @@
 <script>
   // import { createEventDispatcher } from "svelte";
-  import { editCar } from "./store/cars.js";
+  import { editCar, deleteCar } from "./store/cars.js";
 
   export let id;
   export let title;
@@ -32,9 +32,10 @@
   };
 
   const onDeleteHandler = () => {
-    dispatch("delete", {
-      id
-    });
+    // dispatch("delete", {
+    //   id
+    // });
+    deleteCar(id);
   };
 </script>
 
