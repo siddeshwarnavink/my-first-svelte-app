@@ -1,49 +1,12 @@
 <script>
-  import initData from "./initData.js";
   import Header from "./TheHeader.svelte";
   import CarItem from "./CarItem.svelte";
   import NewCar from "./NewCar.svelte";
+  import { carList } from "./store/cars.js";
 
-  let data = [...initData];
+  let data;
 
-  const addCarHandler = event => {
-    const carId = Date.now().toString();
-    const carTitle = event.detail.title;
-    const carSpeed = event.detail.speed;
-
-    const newCar = {
-      id: carId,
-      title: carTitle,
-      speed: carSpeed
-    };
-
-    // NOTE: useing array.push() won`t work!
-    data = [newCar, ...data];
-  };
-
-  const editCarHandler = event => {
-    const carId = event.detail.id;
-    const carTitle = event.detail.title;
-    const carSpeed = event.detail.speed;
-
-    data = data.map(carData => {
-      if (carData.id == carId) {
-        return {
-          id: carId,
-          title: carTitle,
-          speed: carSpeed
-        };
-      }
-
-      return carData;
-    });
-  };
-
-  const deleteCarHandler = event => {
-    const carId = event.detail.id;
-
-    data = data.filter(({ id }) => carId != id);
-  };
+  carList.subscribe(cars => (data = cars));
 </script>
 
 <style>
@@ -58,13 +21,10 @@
   <Header />
 
   <div class="content">
-    <NewCar on:add={addCarHandler} />
+    <NewCar />
     <section>
       {#each data as carData}
-        <CarItem
-          {...carData}
-          on:edit={editCarHandler}
-          on:delete={deleteCarHandler} />
+        <CarItem {...carData} />
       {/each}
     </section>
   </div>
