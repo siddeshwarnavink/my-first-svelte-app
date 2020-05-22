@@ -20,6 +20,26 @@
     // NOTE: useing array.push() won`t work!
     data = [newCar, ...data];
   };
+
+  const editCarHandler = event => {
+    console.log("Ran!");
+
+    const carId = event.detail.id;
+    const carTitle = event.detail.title;
+    const carSpeed = event.detail.speed;
+
+    data = data.map(carData => {
+      if (carData.id == carId) {
+        return {
+          id: carId,
+          title: carTitle,
+          speed: carSpeed
+        };
+      }
+
+      return carData;
+    });
+  };
 </script>
 
 <style>
@@ -37,7 +57,7 @@
     <NewCar on:add={addCarHandler} />
     <section>
       {#each data as carData}
-        <CarItem {...carData} />
+        <CarItem {...carData} on:edit={editCarHandler} />
       {/each}
     </section>
   </div>
