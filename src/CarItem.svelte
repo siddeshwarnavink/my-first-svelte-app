@@ -1,4 +1,5 @@
 <script>
+  export let id;
   export let title;
   export let speed;
 </script>
