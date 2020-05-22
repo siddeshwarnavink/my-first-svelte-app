@@ -1,12 +1,13 @@
 <script>
   import Header from "./TheHeader.svelte";
-
-  export let name;
+  import CarItem from "./CarItem.svelte";
 </script>
 
 <style>
   .content {
-    padding: 10px;
+    max-width: 500px;
+    margin: auto;
+    margin-top: 2em;
   }
 </style>
 
@@ -14,11 +15,7 @@
   <Header />
 
   <div class="content">
-    <h1>Hello {name}!</h1>
-    <p>
-      Visit the
-      <a href="https://svelte.dev/tutorial">Svelte tutorial</a>
-      to learn how to build Svelte apps.
-    </p>
+    <CarItem title="Audi" speed={100} />
+    <CarItem title="Toy Car" speed={10} />
   </div>
 </main>
