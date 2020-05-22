@@ -1,4 +1,5 @@
 <script>
+  import data from './initData.js';
   import Header from "./TheHeader.svelte";
   import CarItem from "./CarItem.svelte";
 </script>
@@ -15,7 +16,8 @@
   <Header />
 
   <div class="content">
-    <CarItem title="Audi" speed={100} />
-    <CarItem title="Toy Car" speed={10} />
+    {#each data as carData}
+      <CarItem {...carData} />
+    {/each}
   </div>
 </main>
