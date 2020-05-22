@@ -1,3 +1,12 @@
+<script>
+  let titleField = "";
+  let speedField = 0;
+
+  const newCarAddHandler = () => {
+    console.log("New Car!", { titleField, speedField });
+  };
+</script>
+
 <style>
   .new_car {
     padding: 10px;
@@ -36,21 +45,26 @@
 
 <div class="new_car">
   <span class="new_car--title">Add new car</span>
-  <form action="">
-    <div class="new_car--formfield">
-      <label for="titleField">Title:</label>
-      <input
-        type="text"
-        name="title"
-        id="titleField"
-        placeholder="e.g: Race Car" />
-    </div>
+  <div class="new_car--formfield">
+    <label for="titleField">Title:</label>
+    <input
+      type="text"
+      name="title"
+      id="titleField"
+      bind:value={titleField}
+      placeholder="e.g: Race Car" />
+  </div>
 
-    <div class="new_car--formfield">
-      <label for="titleField">Speed:</label>
-      <input type="text" name="title" id="titleField" placeholder="e.g: 550" />
-    </div>
+  <div class="new_car--formfield">
+    <label for="titleField">Speed:</label>
+    <input
+      type="number"
+      bind:value={speedField}
+      min="0"
+      name="title"
+      id="titleField"
+      placeholder="e.g: 550" />
+  </div>
 
-    <button>Add car</button>
-  </form>
+  <button on:click|once={newCarAddHandler}>Add car</button>
 </div>
