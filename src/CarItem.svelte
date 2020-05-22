@@ -1,11 +1,12 @@
 <script>
-  import { createEventDispatcher } from "svelte";
+  // import { createEventDispatcher } from "svelte";
+  import { editCar } from "./store/cars.js";
 
   export let id;
   export let title;
   export let speed;
 
-  const dispatch = createEventDispatcher();
+  // const dispatch = createEventDispatcher();
   let isEditMode = false;
   let editTitle = title;
   let editSpeed = speed;
@@ -17,7 +18,12 @@
   };
 
   const onSaveHandler = () => {
-    dispatch("edit", {
+    // dispatch("edit", {
+    //   id,
+    //   title: editTitle,
+    //   speed: editSpeed
+    // });
+    editCar({
       id,
       title: editTitle,
       speed: editSpeed

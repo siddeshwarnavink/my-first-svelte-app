@@ -6,29 +6,7 @@
 
   let data;
 
-  carList.subscribe(cars => {
-    console.log(cars);
-
-    data = cars;
-  });
-
-  const editCarHandler = event => {
-    const carId = event.detail.id;
-    const carTitle = event.detail.title;
-    const carSpeed = event.detail.speed;
-
-    data = data.map(carData => {
-      if (carData.id == carId) {
-        return {
-          id: carId,
-          title: carTitle,
-          speed: carSpeed
-        };
-      }
-
-      return carData;
-    });
-  };
+  carList.subscribe(cars => (data = cars));
 
   const deleteCarHandler = event => {
     const carId = event.detail.id;
@@ -52,10 +30,7 @@
     <NewCar />
     <section>
       {#each data as carData}
-        <CarItem
-          {...carData}
-          on:edit={editCarHandler}
-          on:delete={deleteCarHandler} />
+        <CarItem {...carData} on:delete={deleteCarHandler} />
       {/each}
     </section>
   </div>
