@@ -1,13 +1,14 @@
 <script>
-  import { createEventDispatcher } from "svelte";
+  import { addCar } from "./store/cars.js";
+  // import { createEventDispatcher } from "svelte";
 
-  const dispatch = createEventDispatcher();
+  // const dispatch = createEventDispatcher();
   let titleField = "";
   let speedField = 0;
 
   const newCarAddHandler = () => {
-    // console.log("New Car!", { titleField, speedField });
-    dispatch("add", { title: titleField, speed: speedField });
+    // dispatch("add", { title: titleField, speed: speedField });
+    addCar({ id: Date.now().toString(), title: titleField, speed: speedField });
   };
 </script>
 
@@ -70,5 +71,5 @@
       placeholder="e.g: 550" />
   </div>
 
-  <button on:click|once={newCarAddHandler}>Add car</button>
+  <button on:click={newCarAddHandler}>Add car</button>
 </div>

@@ -12,21 +12,6 @@
     data = cars;
   });
 
-  const addCarHandler = event => {
-    const carId = Date.now().toString();
-    const carTitle = event.detail.title;
-    const carSpeed = event.detail.speed;
-
-    const newCar = {
-      id: carId,
-      title: carTitle,
-      speed: carSpeed
-    };
-
-    // NOTE: useing array.push() won`t work!
-    data = [newCar, ...data];
-  };
-
   const editCarHandler = event => {
     const carId = event.detail.id;
     const carTitle = event.detail.title;
@@ -64,7 +49,7 @@
   <Header />
 
   <div class="content">
-    <NewCar on:add={addCarHandler} />
+    <NewCar />
     <section>
       {#each data as carData}
         <CarItem
