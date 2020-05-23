@@ -1,14 +1,33 @@
 <script>
   import { addCar } from "./store/cars.js";
   // import { createEventDispatcher } from "svelte";
+  import { createFieldValidator } from "./helpers/validation.js";
+  import {
+    requiredValidator,
+    validSpeedValidator
+  } from "./helpers/validators.js";
 
   // const dispatch = createEventDispatcher();
   let titleField = "";
   let speedField = 0;
 
+  let validateTitle = false;
+  const [titleValidity, titleValidate] = createFieldValidator(
+    requiredValidator()
+  );
+
+  let validateSpeed = false;
+  const [speedValidity, speedValidate] = createFieldValidator(
+    validSpeedValidator()
+  );
+
   const newCarAddHandler = () => {
     // dispatch("add", { title: titleField, speed: speedField });
     addCar({ id: Date.now().toString(), title: titleField, speed: speedField });
+    titleField = "";
+    speedField = 0;
+    validateTitle = false;
+    validateSpeed = false;
   };
 </script>
 
@@ -46,6 +65,25 @@
     color: #304ffe;
     font-weight: bold;
   }
+
+  .new_car button:disabled {
+    color: #333;
+  }
+
+  /* VALIDATION STYLE */
+
+  .validation-hint {
+    color: red;
+    padding: 6px 0;
+  }
+
+  .field-danger {
+    border-color: red;
+  }
+
+  .field-success {
+    border-color: green;
+  }
 </style>
 
 <div class="new_car">
@@ -56,8 +94,18 @@
       type="text"
       name="title"
       id="titleField"
+      on:focus|once={() => (validateTitle = true)}
       bind:value={titleField}
-      placeholder="e.g: Race Car" />
+      class:field-danger={validateTitle && !$titleValidity.valid}
+      class:field-success={$titleValidity.valid}
+      placeholder="e.g: Race Car"
+      use:titleValidate={titleField} />
+
+    {#if validateTitle && $titleValidity.dirty && !$titleValidity.valid}
+      <span class="validation-hint">
+        {$titleValidity.message} {$titleValidity.dirty}
+      </span>
+    {/if}
   </div>
 
   <div class="new_car--formfield">
@@ -68,8 +116,22 @@
       min="0"
       name="title"
       id="titleField"
-      placeholder="e.g: 550" />
+      placeholder="e.g: 550"
+      on:focus|once={() => (validateSpeed = true)}
+      class:field-danger={validateSpeed && !$speedValidity.valid}
+      class:field-success={$speedValidity.valid}
+      use:speedValidate={speedField} />
+
+    {#if validateSpeed && $speedValidity.dirty && !$speedValidity.valid}
+      <span class="validation-hint">
+        {$speedValidity.message} {$speedValidity.dirty}
+      </span>
+    {/if}
   </div>
 
-  <button on:click={newCarAddHandler}>Add car</button>
+  <button
+    disabled={!$titleValidity.valid && !$speedValidity.valid}
+    on:click={newCarAddHandler}>
+    Add car
+  </button>
 </div>
